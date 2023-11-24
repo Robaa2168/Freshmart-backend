@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "6439713c1d8869133e8881f5"
+  },
+  "name": "Brain H. Landry",
+  "email": "brain@gmail.com",
+  "password": "$2a$10$bWmMyaIRpGp.ETy79a0wDOmqsnTfBtpo2OAf8HrZA.W.CxRvxaeiO",
+  "phone": "714-200-5488",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-04-14T15:29:00.803Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-14T15:29:00.803Z"
+  }
+}]
