@@ -70,7 +70,7 @@ const registerCustomer = async (req, res) => {
           message: "Token Expired, Please try again!",
         });
       } else {
-        // Set the user's 'emailVerified' flag to true
+
         user.emailVerified = true;
         await user.save();
 

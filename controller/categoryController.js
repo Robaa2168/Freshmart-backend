@@ -51,7 +51,7 @@ const getShowingCategory = async (req, res) => {
   }
 };
 
-// get all category parent and child
+
 const getAllCategory = async (req, res) => {
   try {
     const categories = await Category.find({}).sort({ _id: -1 });
