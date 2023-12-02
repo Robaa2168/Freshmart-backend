@@ -334,6 +334,11 @@ const confirmTransaction = async (req, res) => {
       console.log('Deposit not found:', CheckoutRequestID);
       return res.status(404).json({ error: 'Deposit not found' });
     }
+    const order = await Order.findOne({ paymentIdentifier: deposit.paymentIdentifier });
+    if (!order) {
+      console.log('Order not found for payment identifier:', deposit.paymentIdentifier);
+      return res.status(404).json({ error: 'Order not found' });
+    }
 
     if (ResultCode === 0) {
       // Handle successful transaction
@@ -342,6 +347,10 @@ const confirmTransaction = async (req, res) => {
       deposit.phoneNumberCallback = metadata.PhoneNumber;
       deposit.isSuccess = true;
       await deposit.save();
+
+      order.status = 'Processing'; // Assuming this is the next status after successful payment
+      order.paymentStatus = 'Successful';
+      await order.save();
 
       const successMessage = `Dear Customer, your payment of KES ${metadata.Amount} to Freshmart Groceries has been successfully processed. Thank you for choosing us.`;
       console.log(`Attempting to send success SMS to ${metadata.PhoneNumber}`);

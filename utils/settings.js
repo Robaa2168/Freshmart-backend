@@ -271,46 +271,7 @@ const setting = [
           en: "Co-founder & Executive",
           de: "Co-founder & Executive",
         },
-        founder_two_name: {
-          en: "Orla Dwyer",
-          de: "Orla Dwyer ",
-        },
-        founder_two_sub: {
-          en: "Chief Executive",
-          de: "Chief Executive",
-        },
-        founder_three_name: {
-          en: "Danien James",
-          de: "Danien James ",
-        },
-        founder_three_sub: {
-          en: "Co-founder, Chairman",
-          de: "Co-founder, Chairman",
-        },
-        founder_four_name: {
-          en: "Dara Frazier",
-          de: "Dara Frazier ",
-        },
-        founder_four_sub: {
-          en: "Chief Strategy Officer",
-          de: "Chief Strategy Officer",
-        },
-        founder_five_name: {
-          en: "Glenda Arvidson",
-          de: "Glenda Arvidson",
-        },
-        founder_five_sub: {
-          en: "HR Officer",
-          de: " HR Officer",
-        },
-        founder_six_name: {
-          en: "Melvin Davis ",
-          de: "Melvin Davis ",
-        },
-        founder_six_sub: {
-          en: "Lead Developer",
-          de: "Lead Developer",
-        },
+       
       },
 
       contact_us: {
@@ -347,8 +308,8 @@ const setting = [
           de: "Rufen Sie uns an",
         },
         call_box_phone: {
-          en: "029-00124667",
-          de: "029-00124667",
+          en: "+254727372017",
+          de: "+254727372017",
         },
         call_box_text: {
           en: "Distinctively disseminate focused solutions clicks-and-mortar ministate. ",
@@ -459,14 +420,6 @@ const setting = [
           en: "Continually impact seamless imperatives for best-of-breed best practices. Phosfluorescently facilitate parallel applications with unique imperatives. Proactively plagiarize functionalized deliverables via inexpensive solutions. Collaboratively embrace web-enabled infomediaries rather than diverse testing procedures.",
           de: "Continually impact seamless imperatives for best-of-breed\nbest practices. Phosfluorescently facilitate parallel\n                      applications with unique imperatives. Proactively\n                      plagiarize functionalized deliverables via inexpensive\n                      solutions. Collaboratively embrace web-enabled\n                      infomediaries rather than diverse testing procedures.",
         },
-        faq_five: {
-          en: "What is Freshmart EC2 auto scaling?",
-          de: "Was ist die automatische Skalierung von Freshmart EC2?",
-        },
-        description_five: {
-          en: "Continually impact seamless imperatives for best-of-breed best practices. Phosfluorescently facilitate parallel applications with unique imperatives. Proactively plagiarize functionalized deliverables via inexpensive solutions. Collaboratively embrace web-enabled infomediaries rather than diverse testing procedures.",
-          de: "Kontinuierliche Umsetzung nahtloser Anforderungen für Best-of-Breed-Best Practices. Phosfluoreszierend erleichtert parallele Anwendungen mit einzigartigen Anforderungen. Plagiieren Sie proaktiv funktionalisierte Ergebnisse mit kostengünstigen Lösungen. Nutzen Sie gemeinsam webbasierte Infomediaries anstelle verschiedener Testverfahren.",
-        },
         faq_six: {
           en: "What are the benefits of using Freshmart affliate?",
           de: "Welche Vorteile bietet die Nutzung eines Cloud Clever-Partners?",
@@ -482,14 +435,6 @@ const setting = [
         description_seven: {
           en: "Yes. You can cancel your subscription anytime. Your subscription will continue to be active until the end of your current term (month or year) but it will not auto-renew. Unless you delete your account manually, your account and all data will be deleted 60 days from the day your subscription becomes inactive.",
           de: "Ja. Sie können Ihr Abonnement jederzeit kündigen. Ihr Abonnement bleibt bis zum Ende Ihrer aktuellen Laufzeit (Monat oder Jahr) aktiv, verlängert sich jedoch nicht automatisch. Sofern Sie Ihr Konto nicht manuell löschen, werden Ihr Konto und alle Daten 60 Tage nach dem Tag, an dem Ihr Abonnement inaktiv wird, gelöscht.",
-        },
-        faq_eight: {
-          en: "What is fleet management and how is it different from dynamic scaling?",
-          de: "Was ist Flottenmanagement und wie unterscheidet es sich von dynamischer Skalierung?",
-        },
-        description_eight: {
-          en: "Distinctively initiate error-free channels with highly efficient ROI. Intrinsicly envisioneer world-class data via best-of-breed best practices. Efficiently enable empowered e-tailers after cross-unit services. Uniquely expedite seamless e-tailers via cooperative interfaces. Monotonectally myocardinate customer directed meta-services whereas error-free scenarios.",
-          de: "Initiieren Sie gezielt fehlerfreie Kanäle mit hocheffizientem ROI. Stellen Sie sich durch branchenführende Best Practices erstklassige Daten vor. Ermöglichen Sie leistungsstarken E-Händlern auf effiziente Weise die Bereitstellung abteilungsübergreifender Dienstleistungen. Beschleunigen Sie nahtlose E-Tailer auf einzigartige Weise über kooperative Schnittstellen. Monotone myokardinierte kundengesteuerte Metadienste während fehlerfreier Szenarien.",
         },
       },
 
