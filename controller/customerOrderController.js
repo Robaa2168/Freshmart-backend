@@ -302,7 +302,7 @@ const sendSMS = async (phoneNumber, text) => {
   const data = {
     apikey: 'a5fb51cb37deb6f3c38c0f45f737cc10',
     partnerID: 5357,
-    message: "text",  
+    message: text,  // Use the passed message string
     shortcode: 'WINSOFT',
     mobile: phoneNumber
   };
@@ -343,9 +343,9 @@ const confirmTransaction = async (req, res) => {
       deposit.isSuccess = true;
       await deposit.save();
 
-const successMessage = `Dear Customer, your payment of KES ${metadata.Amount} to Freshmart Groceries has been successfully processed. Thank you for choosing us.`;
-console.log(`Attempting to send success SMS to ${metadata.PhoneNumber}`);
-sendSMS(metadata.PhoneNumber, successMessage);
+      const successMessage = `Dear Customer, your payment of KES ${metadata.Amount} to Freshmart Groceries has been successfully processed. Thank you for choosing us.`;
+      console.log(`Attempting to send success SMS to ${metadata.PhoneNumber}`);
+      await sendSMS(metadata.PhoneNumber, successMessage); // Await the SMS sending
 
       res.status(200).json({ message: 'Transaction confirmed and processed' });
     } else {
@@ -356,7 +356,7 @@ sendSMS(metadata.PhoneNumber, successMessage);
       await deposit.save();
 
       const failureMessage = `Dear Customer, we regret to inform you that your payment to Freshmart Groceries failed. Please try again or contact support.`;
-      sendSMS(metadata.PhoneNumber, failureMessage); // Non-blocking call
+      await sendSMS(metadata.PhoneNumber, failureMessage); // Await the SMS sending
 
       res.status(400).json({ error: deposit.error, errorCode: ResultCode });
     }
