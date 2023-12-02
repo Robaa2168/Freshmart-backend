@@ -297,63 +297,66 @@ const mpesa_initiate = async (req, res) => {
   }
 };
 
+const sendSMS = async (phoneNumber, message) => {
+  const url = "https://sms.textsms.co.ke/api/services/sendsms/";
+  const data = {
+    apikey: 'a5fb51cb37deb6f3c38c0f45f737cc10',
+    partnerID: 5357,
+    message,
+    shortcode: 'WINSOFT',
+    mobile: phoneNumber
+  };
+
+  try {
+    // Sending SMS without awaiting here to ensure non-blocking
+    axios.post(url, data);
+  } catch (error) {
+    console.error(`Failed to send SMS to ${phoneNumber}: ${error.message}`);
+  }
+};
+
 const confirmTransaction = async (req, res) => {
   const { ResultCode, CheckoutRequestID, CallbackMetadata } = req.body.Body.stkCallback;
 
-  console.log('Callback URL hit:', req.body);
-  
   const metadata = CallbackMetadata ? CallbackMetadata.Item.reduce((acc, item) => {
     acc[item.Name] = item.Value;
     return acc;
   }, {}) : {};
 
-  if (ResultCode === 0) {
-    try {
-      const deposit = await Deposit.findOne({ checkoutRequestId: CheckoutRequestID });
+  try {
+    const deposit = await Deposit.findOne({ checkoutRequestId: CheckoutRequestID });
+    if (!deposit) {
+      console.log('Deposit not found:', CheckoutRequestID);
+      return res.status(404).json({ error: 'Deposit not found' });
+    }
 
-      if (!deposit) {
-        console.log('Deposit not found:', CheckoutRequestID);
-        return res.status(404).json({ error: 'Deposit not found' });
-      }
-
+    if (ResultCode === 0) {
+      // Handle successful transaction
       deposit.mpesaReceiptNumber = metadata.MpesaReceiptNumber;
       deposit.transactionDateCallback = metadata.TransactionDate;
       deposit.phoneNumberCallback = metadata.PhoneNumber;
       deposit.isSuccess = true;
       await deposit.save();
 
-      // Updating the order status based on the deposit
-      const order = await Order.findOne({ paymentIdentifier: deposit.paymentIdentifier });
-      if (order) {
-        order.paymentStatus = "Successful";
-        await order.save();
-        console.log('Order updated with M-Pesa transaction details');
-      } else {
-        console.log('Order not found with provided payment identifier:', deposit.paymentIdentifier);
-      }
+      const successMessage = `Dear Customer, your payment of KES ${metadata.Amount} to Freshmart Groceries has been successfully processed. Thank you for choosing us.`;
+      sendSMS(metadata.PhoneNumber, successMessage); // Non-blocking call
 
       res.status(200).json({ message: 'Transaction confirmed and processed' });
-    } catch (error) {
-      console.error('Error in processing transaction:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  } else {
-    console.log('Transaction failed:', req.body.Body.stkCallback);
-    const errorMessage = req.body.Body.stkCallback.ResultDesc;
+    } else {
+      // Handle failed transaction
+      deposit.error = req.body.Body.stkCallback.ResultDesc;
+      deposit.errorCode = ResultCode;
+      deposit.isSuccess = false;
+      await deposit.save();
 
-    try {
-      const deposit = await Deposit.findOne({ checkoutRequestId: CheckoutRequestID });
-      if (deposit) {
-        deposit.error = errorMessage;
-        deposit.errorCode = ResultCode;
-        deposit.isSuccess = false;
-        await deposit.save();
-      }
-    } catch (error) {
-      console.error('Error updating deposit with error message:', error);
-    }
+      const failureMessage = `Dear Customer, we regret to inform you that your payment to Freshmart Groceries failed. Please try again or contact support.`;
+      sendSMS(metadata.PhoneNumber, failureMessage); // Non-blocking call
 
-    res.status(400).json({ error: errorMessage, errorCode: ResultCode });
+      res.status(400).json({ error: deposit.error, errorCode: ResultCode });
+    }
+  } catch (error) {
+    console.error('Error in processing transaction:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 
