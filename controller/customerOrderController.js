@@ -4,6 +4,7 @@ const axios = require("axios");
 const mongoose = require("mongoose");
 
 const Order = require("../models/Order");
+const Deposit = require("../models/deposits");
 
 const { handleProductQuantity } = require("../lib/stock-controller/others");
 const { formatAmountForStripe } = require("../lib/stripe/stripe");
@@ -183,14 +184,11 @@ const getOrderById = async (req, res) => {
 };
 
 // Safaricom API credentials
-const MAX_RETRY_COUNT = 3;
 const CONSUMER_KEY = 'mpHonr1ygwzA2fd9MpnQoa55K3k65G3I';
 const CONSUMER_SECRET = 'KQqKfHhvktKM3WB5';
 const LIPA_NA_MPESA_ONLINE_PASSKEY = '7f8c724ec1022a0acde20719041697df14dd76c0f047f569fca17e5105bbb80d';
-const SHORT_CODE = '4118171';
 const LIPA_NA_MPESA_ONLINE_SHORT_CODE = '4118171';
-const CALLBACK_URL = 'https://ravel-moble-backend.vercel.app/api/confirm_esrftj';
-const CALLBACK_B2C_URL = 'https://ravel-moble-backend.vercel.app/api/confirm_bonus';
+const CALLBACK_URL = 'freshmart-backend.vercel.app/order/confirm_esrftj';
 
 // Safaricom API endpoints
 const TOKEN_URL = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
@@ -198,7 +196,23 @@ const STK_PUSH_URL = "https://api.safaricom.co.ke/mpesa/stkpush/v1/processreques
 const B2C_URL = "https://api.safaricom.co.ke/mpesa/b2c/v1/paymentrequest";
 
 async function generateAccessToken() {
+  console.log("generateAccessToken called");
 
+  const auth = Buffer.from(`${CONSUMER_KEY}:${CONSUMER_SECRET}`).toString("base64");
+  console.log("Encoded credentials:", auth);
+
+  try {
+    const response = await axios.get(TOKEN_URL, {
+      headers: {
+        "Authorization": `Basic ${auth}`
+      }
+    });
+
+    console.log("Access token generated successfully.");
+    return response.data.access_token;
+  } catch (error) {
+    console.error("Error generating access token:", error);
+  }
 }
 
 const formatPhoneNumber = (phoneNumber) => {
@@ -216,7 +230,7 @@ const formatPhoneNumber = (phoneNumber) => {
 };
 
 const mpesa_initiate = async (req, res) => {
-  let { phone, amount } = req.body;
+  let { phone, amount, paymentIdentifier, initiatorPhoneNumber } = req.body;
 
   console.log("Received request:", req.body); // Log the initial request data
 
@@ -251,6 +265,30 @@ const mpesa_initiate = async (req, res) => {
       }
     });
 
+        // Save the deposit data to the database
+        const depositData = {
+          phoneNumber: phone,
+          initiatorPhoneNumber: initiatorPhoneNumber,
+          paymentIdentifier: paymentIdentifier,
+          amount: amount,
+          currency: "kes",
+          transactionDate: new Date(),
+          transactionId: response.data.CheckoutRequestID,
+          merchantRequestId: response.data.MerchantRequestID,
+          checkoutRequestId: response.data.CheckoutRequestID,
+          responseCode: response.data.ResponseCode,
+          responseDescription: response.data.ResponseDescription,
+          customerMessage: response.data.CustomerMessage,
+        };
+    
+        try {
+          const newDeposit = new Deposit(depositData);
+          await newDeposit.save();
+          console.log('Deposit saved to the database:', newDeposit);
+        } catch (error) {
+          console.error('Error saving deposit data:', error);
+        }
+
     console.log("STK Push Response:", response.data); // Log the response from the STK push
     res.status(200).json({ success: true, data: response.data });
   } catch (error) {
@@ -259,7 +297,65 @@ const mpesa_initiate = async (req, res) => {
   }
 };
 
+const confirmTransaction = async (req, res) => {
+  const { ResultCode, CheckoutRequestID, CallbackMetadata } = req.body.Body.stkCallback;
 
+  console.log('Callback URL hit:', req.body);
+  
+  const metadata = CallbackMetadata ? CallbackMetadata.Item.reduce((acc, item) => {
+    acc[item.Name] = item.Value;
+    return acc;
+  }, {}) : {};
+
+  if (ResultCode === 0) {
+    try {
+      const deposit = await Deposit.findOne({ checkoutRequestId: CheckoutRequestID });
+
+      if (!deposit) {
+        console.log('Deposit not found:', CheckoutRequestID);
+        return res.status(404).json({ error: 'Deposit not found' });
+      }
+
+      deposit.mpesaReceiptNumber = metadata.MpesaReceiptNumber;
+      deposit.transactionDateCallback = metadata.TransactionDate;
+      deposit.phoneNumberCallback = metadata.PhoneNumber;
+      deposit.isSuccess = true;
+      await deposit.save();
+
+      // Updating the order status based on the deposit
+      const order = await Order.findOne({ paymentIdentifier: deposit.paymentIdentifier });
+      if (order) {
+        order.paymentStatus = "Successful";
+        await order.save();
+        console.log('Order updated with M-Pesa transaction details');
+      } else {
+        console.log('Order not found with provided payment identifier:', deposit.paymentIdentifier);
+      }
+
+      res.status(200).json({ message: 'Transaction confirmed and processed' });
+    } catch (error) {
+      console.error('Error in processing transaction:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  } else {
+    console.log('Transaction failed:', req.body.Body.stkCallback);
+    const errorMessage = req.body.Body.stkCallback.ResultDesc;
+
+    try {
+      const deposit = await Deposit.findOne({ checkoutRequestId: CheckoutRequestID });
+      if (deposit) {
+        deposit.error = errorMessage;
+        deposit.errorCode = ResultCode;
+        deposit.isSuccess = false;
+        await deposit.save();
+      }
+    } catch (error) {
+      console.error('Error updating deposit with error message:', error);
+    }
+
+    res.status(400).json({ error: errorMessage, errorCode: ResultCode });
+  }
+};
 
 module.exports = {
   addOrder,
@@ -267,4 +363,5 @@ module.exports = {
   getOrderCustomer,
   mpesa_initiate,
   createPaymentIntent,
+  confirmTransaction,
 };
