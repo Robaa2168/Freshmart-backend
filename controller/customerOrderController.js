@@ -297,23 +297,24 @@ const mpesa_initiate = async (req, res) => {
   }
 };
 
-const sendSMS = async (phoneNumber, message) => {
+const sendSMS = async (phoneNumber, text) => {
   const url = "https://sms.textsms.co.ke/api/services/sendsms/";
   const data = {
     apikey: 'a5fb51cb37deb6f3c38c0f45f737cc10',
     partnerID: 5357,
-    message,
+    message: "text",  
     shortcode: 'WINSOFT',
     mobile: phoneNumber
   };
 
   try {
     const response = await axios.post(url, data);
-    console.log('SMS sent successfully', response.data); // Log the response for debugging
+    console.log('SMS sent successfully', response.data);
   } catch (error) {
     console.error(`Failed to send SMS to ${phoneNumber}: ${error.message}`);
   }
 };
+
 
 
 const confirmTransaction = async (req, res) => {
@@ -341,7 +342,7 @@ const confirmTransaction = async (req, res) => {
       deposit.phoneNumberCallback = metadata.PhoneNumber;
       deposit.isSuccess = true;
       await deposit.save();
-      
+
 const successMessage = `Dear Customer, your payment of KES ${metadata.Amount} to Freshmart Groceries has been successfully processed. Thank you for choosing us.`;
 console.log(`Attempting to send success SMS to ${metadata.PhoneNumber}`);
 sendSMS(metadata.PhoneNumber, successMessage);
