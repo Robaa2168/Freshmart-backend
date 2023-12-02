@@ -95,8 +95,8 @@ const orders = [
       {
         prices: {
           discount: 0,
-          originalPrice: 112.72,
-          price: 112.72,
+          originalPrice: 50,
+          price: 50,
         },
         categories: [
           "62d2bbd22e63b40520194f1b",
@@ -133,19 +133,19 @@ const orders = [
         id: "643970cde58a401b6c62c74e",
         variant: {
           discount: 0,
-          originalPrice: 112.72,
-          price: 112.72,
+          originalPrice: 50,
+          price: 50,
         },
-        price: 112.72,
-        originalPrice: 112.72,
+        price: 50,
+        originalPrice: 50,
         quantity: 3,
         itemTotal: 338.15999999999997,
       },
       {
         prices: {
           discount: 0,
-          originalPrice: 7.07,
-          price: 7.07,
+          originalPrice: 10,
+          price: 10,
         },
         categories: [
           "632aca2b4d87ff2494210be8",
@@ -186,19 +186,19 @@ const orders = [
         id: "643970cde58a401b6c62c74d",
         variant: {
           discount: 0,
-          originalPrice: 7.07,
-          price: 7.07,
+          originalPrice: 10,
+          price: 10,
         },
-        price: 7.07,
-        originalPrice: 7.07,
+        price: 10,
+        originalPrice: 10,
         quantity: 3,
         itemTotal: 21.21,
       },
       {
         prices: {
           discount: 0,
-          originalPrice: 48.12,
-          price: 48.12,
+          originalPrice: 35,
+          price: 35,
         },
         categories: [
           "632aca2b4d87ff2494210be8",
@@ -235,11 +235,11 @@ const orders = [
         id: "643970cde58a401b6c62c74c",
         variant: {
           discount: 0,
-          originalPrice: 48.12,
-          price: 48.12,
+          originalPrice: 35,
+          price: 35,
         },
-        price: 48.12,
-        originalPrice: 48.12,
+        price: 35,
+        originalPrice: 35,
         quantity: 4,
         itemTotal: 192.48,
       },
@@ -541,8 +541,8 @@ const orders = [
       {
         prices: {
           discount: 0,
-          originalPrice: 112.72,
-          price: 112.72,
+          originalPrice: 50,
+          price: 50,
         },
         categories: [
           "62d2bbd22e63b40520194f1b",
@@ -580,11 +580,11 @@ const orders = [
         id: "643970cde58a401b6c62c74e",
         variant: {
           discount: 0,
-          originalPrice: 112.72,
-          price: 112.72,
+          originalPrice: 50,
+          price: 50,
         },
-        price: 112.72,
-        originalPrice: 112.72,
+        price: 50,
+        originalPrice: 50,
         quantity: 4,
         itemTotal: 450.88,
       },
@@ -1011,8 +1011,8 @@ const orders = [
       {
         prices: {
           discount: 0,
-          originalPrice: 211.96,
-          price: 211.96,
+          originalPrice: 90,
+          price: 90,
         },
         categories: [
           "632aca2b4d87ff2494210be8",
@@ -1049,19 +1049,19 @@ const orders = [
         id: "643970cde58a401b6c62c749",
         variant: {
           discount: 0,
-          originalPrice: 211.96,
-          price: 211.96,
+          originalPrice: 90,
+          price: 90,
         },
-        price: 211.96,
-        originalPrice: 211.96,
+        price: 90,
+        originalPrice: 90,
         quantity: 3,
         itemTotal: 635.88,
       },
       {
         prices: {
           discount: 0,
-          originalPrice: 71.18,
-          price: 71.18,
+          originalPrice: 200,
+          price: 200,
         },
         categories: [
           "632aca2b4d87ff2494210be8",
@@ -1096,8 +1096,8 @@ const orders = [
         createdAt: "2023-04-14T15:27:09.571Z",
         updatedAt: "2023-04-14T15:27:09.571Z",
         id: "643970cde58a401b6c62c741",
-        price: 71.18,
-        originalPrice: 71.18,
+        price: 200,
+        originalPrice: 200,
         quantity: 3,
         itemTotal: 213.54000000000002,
       },

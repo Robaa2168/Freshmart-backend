@@ -305,58 +305,8 @@ const categories = [
     parentName: "Drink",
     icon: "",
   },
-  {
-    _id: "632ab14a4d87ff2494210a29",
-    status: "show",
-    name: {
-      en: "Milk & Dairy",
-    },
-    description: {
-      en: "Milk & Dairy",
-    },
-    parentId: "62c827b5a427b63741da9175",
-    parentName: "Home",
-    icon: "https://res.cloudinary.com/ahossain/image/upload/v1658340706/category%20icon/milk_dcl0dr.png",
-  },
-  {
-    _id: "632ab1584d87ff2494210a31",
-    status: "show",
-    name: {
-      en: "Dairy",
-    },
-    description: {
-      en: "Dairy",
-    },
-    parentId: "632ab14a4d87ff2494210a29",
-    parentName: "Milk & Dairys",
-    icon: "",
-  },
-  {
-    _id: "632ab1644d87ff2494210a3c",
-    status: "show",
-    name: {
-      en: "Ice Cream",
-    },
-    description: {
-      en: "Ice Cream",
-    },
-    parentId: "632ab14a4d87ff2494210a29",
-    parentName: "Milk & Dairys",
-    icon: "",
-  },
-  {
-    _id: "632ab16c4d87ff2494210a44",
-    status: "show",
-    name: {
-      en: "Butter & Ghee",
-    },
-    description: {
-      en: "Butter & Ghee",
-    },
-    parentId: "632ab14a4d87ff2494210a29",
-    parentName: "Milk & Dairys",
-    icon: "",
-  },
+  
+
   {
     _id: "632ab1e04d87ff2494210a6a",
     status: "show",
@@ -526,98 +476,8 @@ const categories = [
     parentName: "Fresh Fruits",
     icon: "",
   },
-  {
-    _id: "632aca6d4d87ff2494210c24",
-    status: "show",
-    name: {
-      en: "Fish & Meat",
-    },
-    description: {
-      en: "Fish & Meat",
-    },
-    parentId: "62c827b5a427b63741da9175",
-    parentName: "Home",
-    icon: "https://res.cloudinary.com/ahossain/image/upload/v1658340705/category%20icon/carp-fish_paxzrt.png",
-  },
-  {
-    _id: "632aca754d87ff2494210c2c",
-    status: "show",
-    name: {
-      en: "Meat",
-    },
-    description: {
-      en: "Meat",
-    },
-    parentId: "632aca6d4d87ff2494210c24",
-    parentName: "Fish & Meats",
-    icon: "",
-  },
-  {
-    _id: "632aca7e4d87ff2494210c34",
-    status: "show",
-    name: {
-      en: "Fish",
-    },
-    description: {
-      en: "Fish",
-    },
-    parentId: "632aca6d4d87ff2494210c24",
-    parentName: "Fish & Meats",
-    icon: "",
-  },
-  {
-    _id: "632aca864d87ff2494210c3c",
-    status: "show",
-    name: {
-      en: "Beef",
-    },
-    description: {
-      en: "Beef",
-    },
-    parentId: "632aca754d87ff2494210c2c",
-    parentName: "Meat",
-    icon: "",
-  },
-  {
-    _id: "632aca944d87ff2494210c47",
-    status: "show",
-    name: {
-      en: "Tuna",
-    },
-    description: {
-      en: "Tuna",
-    },
-    parentId: "632aca7e4d87ff2494210c34",
-    parentName: "Fish",
-    icon: "",
-  },
-  {
-    _id: "632aca9b4d87ff2494210c4f",
-    status: "show",
-    name: {
-      en: "Rui",
-    },
-    description: {
-      en: "Rui",
-    },
-    parentId: "632aca7e4d87ff2494210c34",
-    parentName: "Fish",
-    icon: "",
-  },
-
-  {
-    _id: "63f12afdcc480f0454f475dd",
-    status: "show",
-    name: {
-      en: "Baby Food",
-    },
-    description: {
-      en: "Baby Food",
-    },
-    parentId: "632aca2b4d87ff2494210be8",
-    parentName: "Fruits & Vegetable",
-    icon: "",
-  },
+ 
+ 
 ];
 
 module.exports = categories;

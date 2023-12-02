@@ -744,19 +744,10 @@ const setting = [
           en: "Latest News",
           de: "Neueste Nachrichten",
         },
-        block2_sub_title1: {
-          en: "Fish & Meat",
-          de: "Fisch Fleisch",
-        },
         block2_sub_link1: "/search?category=fish-meat",
         block2_sub_title2: {
           en: "Soft Drink",
           de: "Erfrischungsgetränk",
-        },
-        block2_sub_link2: "/search?category=drinks",
-        block2_sub_title3: {
-          en: "Milk & Dairy",
-          de: "Milch und Milchprodukte",
         },
         block2_sub_link4: "/search?category=fish-meat",
 
