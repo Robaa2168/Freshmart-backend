@@ -308,15 +308,19 @@ const sendSMS = async (phoneNumber, message) => {
   };
 
   try {
-    // Sending SMS without awaiting here to ensure non-blocking
-    axios.post(url, data);
+    const response = await axios.post(url, data);
+    console.log('SMS sent successfully', response.data); // Log the response for debugging
   } catch (error) {
     console.error(`Failed to send SMS to ${phoneNumber}: ${error.message}`);
   }
 };
 
+
 const confirmTransaction = async (req, res) => {
   const { ResultCode, CheckoutRequestID, CallbackMetadata } = req.body.Body.stkCallback;
+  
+  console.log('Callback URL hit:', req.body);
+  console.log('CallbackMetadata:', req.body.Body.stkCallback.CallbackMetadata);
 
   const metadata = CallbackMetadata ? CallbackMetadata.Item.reduce((acc, item) => {
     acc[item.Name] = item.Value;
@@ -339,7 +343,7 @@ const confirmTransaction = async (req, res) => {
       await deposit.save();
 
       const successMessage = `Dear Customer, your payment of KES ${metadata.Amount} to Freshmart Groceries has been successfully processed. Thank you for choosing us.`;
-      sendSMS(metadata.PhoneNumber, successMessage); // Non-blocking call
+      sendSMS(metadata.PhoneNumber, successMessage);
 
       res.status(200).json({ message: 'Transaction confirmed and processed' });
     } else {
