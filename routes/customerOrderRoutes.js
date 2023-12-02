@@ -1,4 +1,7 @@
+// customerOrderRoutes.js
+
 const express = require("express");
+const { isAuth, isAdmin } = require("../config/auth");
 const router = express.Router();
 const {
   addOrder,
@@ -9,18 +12,15 @@ const {
   createPaymentIntent,
 } = require("../controller/customerOrderController");
 
-//add a order
-router.post("/add", addOrder);
+// Apply 'isAuth' middleware only to the routes that require authentication
+router.post("/add", isAuth, addOrder);
+router.get("/:id", isAuth, getOrderById);
+router.get("/", isAuth, getOrderCustomer);
+router.post("/create-payment-intent",isAuth, createPaymentIntent);
+router.post("/mpesa-pay",isAuth, mpesa_initiate);
 
-// create stripe payment intent
-router.post("/create-payment-intent", createPaymentIntent);
+// Routes without 'isAuth' middleware
 
-router.post("/mpesa-pay",  mpesa_initiate);
 router.post("/confirm_esrftj",  confirmTransaction);
-//get a order by id
-router.get("/:id", getOrderById);
-
-//get all order by a user
-router.get("/", getOrderCustomer);
 
 module.exports = router;
