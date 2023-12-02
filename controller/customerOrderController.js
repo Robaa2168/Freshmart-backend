@@ -318,7 +318,7 @@ const sendSMS = async (phoneNumber, message) => {
 
 const confirmTransaction = async (req, res) => {
   const { ResultCode, CheckoutRequestID, CallbackMetadata } = req.body.Body.stkCallback;
-  
+
   console.log('Callback URL hit:', req.body);
   console.log('CallbackMetadata:', req.body.Body.stkCallback.CallbackMetadata);
 
@@ -341,9 +341,10 @@ const confirmTransaction = async (req, res) => {
       deposit.phoneNumberCallback = metadata.PhoneNumber;
       deposit.isSuccess = true;
       await deposit.save();
-
-      const successMessage = `Dear Customer, your payment of KES ${metadata.Amount} to Freshmart Groceries has been successfully processed. Thank you for choosing us.`;
-      sendSMS(metadata.PhoneNumber, successMessage);
+      
+const successMessage = `Dear Customer, your payment of KES ${metadata.Amount} to Freshmart Groceries has been successfully processed. Thank you for choosing us.`;
+console.log(`Attempting to send success SMS to ${metadata.PhoneNumber}`);
+sendSMS(metadata.PhoneNumber, successMessage);
 
       res.status(200).json({ message: 'Transaction confirmed and processed' });
     } else {
