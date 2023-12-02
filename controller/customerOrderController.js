@@ -188,7 +188,7 @@ const CONSUMER_KEY = 'mpHonr1ygwzA2fd9MpnQoa55K3k65G3I';
 const CONSUMER_SECRET = 'KQqKfHhvktKM3WB5';
 const LIPA_NA_MPESA_ONLINE_PASSKEY = '7f8c724ec1022a0acde20719041697df14dd76c0f047f569fca17e5105bbb80d';
 const LIPA_NA_MPESA_ONLINE_SHORT_CODE = '4118171';
-const CALLBACK_URL = 'https://freshmart-backend.vercel.app/order/confirm_esrftj';
+const CALLBACK_URL = 'https://freshmart-backend.vercel.app/api/order/confirm_esrftj';
 
 // Safaricom API endpoints
 const TOKEN_URL = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
