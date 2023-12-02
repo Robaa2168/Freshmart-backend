@@ -67,7 +67,7 @@ const server = app.listen(PORT, () =>
 //setting up socket
 const io = socket(server, {
   cors: {
-    origin: "*",
+    origin: 'https://freshmart-plum.vercel.app',
     methods: ["PUT", "GET", "POST", "DELETE", "PATCH", "OPTIONS"],
     credentials: false,
     transports: ["websocket", "polling"],
