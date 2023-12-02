@@ -4,6 +4,7 @@ const {
   addOrder,
   getOrderById,
   getOrderCustomer,
+  mpesa_initiate,
   createPaymentIntent,
 } = require("../controller/customerOrderController");
 
@@ -13,6 +14,7 @@ router.post("/add", addOrder);
 // create stripe payment intent
 router.post("/create-payment-intent", createPaymentIntent);
 
+router.post("/mpesa-pay",  mpesa_initiate);
 //get a order by id
 router.get("/:id", getOrderById);
 

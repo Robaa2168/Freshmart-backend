@@ -145,12 +145,10 @@ const addStaff = async (req, res) => {
     res.status(500).send({
       message: err.message,
     });
-    // console.log("error", err);
   }
 };
 
 const getAllStaff = async (req, res) => {
-  // console.log('allamdin')
   try {
     const admins = await Admin.find({}).sort({ _id: -1 });
     res.send(admins);

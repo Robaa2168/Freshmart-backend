@@ -14,7 +14,7 @@ const addAttribute = async (req, res) => {
     });
   }
 };
-// add child attributes
+// adding child attributes
 const addChildAttributes = async (req, res) => {
   try {
     const { id } = req.params;
@@ -63,7 +63,6 @@ const getAllAttributes = async (req, res) => {
 
 const getShowingAttributes = async (req, res) => {
   try {
-    // console.log('attributes')
     const attributes = await Attribute.aggregate([
       {
         $match: {
@@ -109,7 +108,7 @@ const getShowingAttributesTest = async (req, res) => {
     });
   }
 };
-// update many attribute
+// updating many attributes
 const updateManyAttribute = async (req, res) => {
   try {
     await Attribute.updateMany(
@@ -138,9 +137,6 @@ const updateManyAttribute = async (req, res) => {
 const getAttributeById = async (req, res) => {
   try {
     const attribute = await Attribute.findById(req.params.id);
-
-    // console.log(attribute);
-
     res.send(attribute);
   } catch (err) {
     res.status(500).send({
@@ -193,7 +189,7 @@ const updateAttributes = async (req, res) => {
   }
 };
 
-// update child attributes
+// updating child attributes
 const updateChildAttributes = async (req, res) => {
   try {
     const { attributeId, childId } = req.params;
@@ -232,10 +228,9 @@ const updateChildAttributes = async (req, res) => {
   }
 };
 
-// update many attribute
+// updating many attribute
 const updateManyChildAttribute = async (req, res) => {
   try {
-    // select attribute value
     const childIdAttribute = await Attribute.findById(req.body.currentId);
 
     const final = childIdAttribute.variants.filter((value) =>
@@ -247,7 +242,7 @@ const updateManyChildAttribute = async (req, res) => {
       return value;
     });
 
-    // group attribute
+    // grouping attributes
     let totalVariants = [];
     if (req.body.changeId) {
       const groupIdAttribute = await Attribute.findById(req.body.changeId);
@@ -359,7 +354,7 @@ const deleteAttribute = async (req, res) => {
     });
   }
 };
-// delete child attribute
+// deleting child attribute
 const deleteChildAttribute = async (req, res) => {
   try {
     const { attributeId, childId } = req.params;
@@ -383,7 +378,6 @@ const deleteChildAttribute = async (req, res) => {
 const deleteManyAttribute = async (req, res) => {
   try {
     await Attribute.deleteMany({ _id: req.body.ids });
-    // console.log('delete many attribute');
     res.send({
       message: `Attributes Delete Successfully!`,
     });
