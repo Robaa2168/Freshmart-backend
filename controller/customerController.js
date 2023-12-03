@@ -36,7 +36,7 @@ const verifyEmailAddress = async (req, res) => {
       token: token,
     };
     const body = {
-      from: process.env.EMAIL_USER,
+      from: `"Freshmart Groceries" <${process.env.EMAIL_USER}>`,
       to: `${req.body.email}`,
       subject: "Verify Your Email",
       html: customerRegisterBody(option),
