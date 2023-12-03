@@ -4,7 +4,7 @@ const coupons = [
 
     status: "show",
     title: {
-      en: "August Gift Voucher",
+      en: "NOVEMBER Gift Voucher",
       de: "august geschenkgutschein",
       hy: "օգոստոսյան նվեր վաուչեր",
       af: "augustus geskenkbewys",
@@ -14,7 +14,7 @@ const coupons = [
       ar: "قسيمة هدايا أغسطس",
       pt: "voucher presente agosto",
     },
-    couponCode: "AUGUST21",
+    couponCode: "NOVEMBER",
     endTime: "2023-10-31T08:30:00.000Z",
 
     minimumAmount: 2000,
@@ -39,8 +39,8 @@ const coupons = [
       az: "yay hədiyyə vauçeri",
       ln: "sanza ya Zomi na Mibale",
     },
-    couponCode: "SUMMER23",
-    endTime: "2023-10-18T20:38:00.000Z",
+    couponCode: "DECEMBER",
+    endTime: "2023-12-25T20:38:00.000Z",
 
     minimumAmount: 500,
     productType: "Grocery",
@@ -55,10 +55,10 @@ const coupons = [
 
     status: "show",
     title: {
-      en: "Summer Gift Voucher",
+      en: "Gift Voucher",
       de: "sommer geschenkgutschein",
     },
-    couponCode: "SUMMER21",
+    couponCode: "FIRST",
     endTime: "2023-12-20T00:56:00.000Z",
 
     minimumAmount: 1000,
@@ -74,17 +74,12 @@ const coupons = [
 
     status: "show",
     title: {
-      en: "Winter Gift Voucher",
-      de: "wintergeschenkgutschein",
-      az: "qış hədiyyə vauçeri",
-      ln: "zima Mpho Mpho Mpho",
-      ar: "قسيمة هدايا الشتاء",
-      pt: "voucher de presente de inverno",
+      en: "Black FRIDAY",
     },
-    couponCode: "WINTER23",
-    endTime: "2024-05-31T20:19:00.000Z",
+    couponCode: "BFRIDAY",
+    endTime: "2024-01-01T20:19:00.000Z",
 
-    minimumAmount: 1500,
+    minimumAmount: 500,
     productType: "Grocery",
     logo: "https://i.ibb.co/wBBYm7j/ins4.jpg",
     discountType: {

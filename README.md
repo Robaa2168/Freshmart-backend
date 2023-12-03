@@ -30,8 +30,9 @@ Within the project directory you'll find a .env.example file just rename it as .
 Step 2 : Running the project:
 
     ⦁	First npm install for install all packages latest version.
+    ⦁	npm start
     ⦁	npm run start:dev for run in development mode.
-    ⦁	npm run data:import for manually import all data into your database, this will run seed.js file and all sample data in utils file will
+    ⦁	npm run data:import for manually import all data into  database, this will run seed.js file and all sample data in utils file will
             imported to your database.
 
 

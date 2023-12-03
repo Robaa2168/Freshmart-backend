@@ -228,58 +228,6 @@ const categories = [
     icon: "",
   },
   {
-    _id: "632ab0334d87ff24942109c1",
-    status: "show",
-    name: {
-      en: "Drinks",
-    },
-    description: {
-      en: "Drinks",
-    },
-    parentId: "62c827b5a427b63741da9175",
-    parentName: "Home",
-    icon: "https://res.cloudinary.com/ahossain/image/upload/v1658340705/category%20icon/juice_p5gv5k.png",
-  },
-  {
-    _id: "632ab0454d87ff24942109cc",
-    status: "show",
-    name: {
-      en: "Energy Drinks",
-    },
-    description: {
-      en: "Energy Drinks",
-    },
-    parentId: "632ab0334d87ff24942109c1",
-    parentName: "Drink",
-    icon: "",
-  },
-  {
-    _id: "632ab0504d87ff24942109d7",
-    status: "show",
-    name: {
-      en: "Coffee",
-    },
-    description: {
-      en: "Coffee",
-    },
-    parentId: "632ab0334d87ff24942109c1",
-    parentName: "Drink",
-    icon: "",
-  },
-  {
-    _id: "632ab0564d87ff24942109df",
-    status: "show",
-    name: {
-      en: "Juice",
-    },
-    description: {
-      en: "Juice",
-    },
-    parentId: "632ab0334d87ff24942109c1",
-    parentName: "Drink",
-    icon: "",
-  },
-  {
     _id: "632ab0604d87ff24942109e7",
     status: "show",
     name: {
@@ -320,84 +268,7 @@ const categories = [
     parentName: "Home",
     icon: "https://i.postimg.cc/rmLvfsMC/strawberry-jam-1.png",
   },
-  {
-    _id: "632ac9e94d87ff2494210ba0",
-    status: "show",
-    name: {
-      en: "Biscuits & Cakes",
-    },
-    description: {
-      en: "Biscuits & Cakes",
-    },
-    parentId: "62c827b5a427b63741da9175",
-    parentName: "Home",
-    icon: "https://res.cloudinary.com/ahossain/image/upload/v1658340705/category%20icon/cookie_1_ugipqa.png",
-  },
-  {
-    _id: "632ac9ef4d87ff2494210ba8",
-    status: "show",
-    name: {
-      en: "Cakes",
-    },
-    description: {
-      en: "Cakes",
-    },
-    parentId: "632ac9e94d87ff2494210ba0",
-    parentName: "Biscuits & Cake",
-    icon: "",
-  },
-  {
-    _id: "632ac9f64d87ff2494210bb0",
-    status: "show",
-    name: {
-      en: "Biscuits",
-    },
-    description: {
-      en: "Biscuits",
-    },
-    parentId: "632ac9e94d87ff2494210ba0",
-    parentName: "Biscuits & Cake",
-    icon: "",
-  },
-  {
-    _id: "632aca0b4d87ff2494210bc4",
-    status: "show",
-    name: {
-      en: "Cooking Essentials",
-    },
-    description: {
-      en: "Cooking Essentials",
-    },
-    parentId: "62c827b5a427b63741da9175",
-    parentName: "Home",
-    icon: "https://res.cloudinary.com/ahossain/image/upload/v1658340704/category%20icon/frying-pan_vglm5c.png",
-  },
-  {
-    _id: "632aca144d87ff2494210bcc",
-    status: "show",
-    name: {
-      en: "Oil",
-    },
-    description: {
-      en: "Oil",
-    },
-    parentId: "632aca0b4d87ff2494210bc4",
-    parentName: "Cooking Essential",
-    icon: "",
-  },
-  {
-    _id: "632aca184d87ff2494210bd4",
-    status: "show",
-    name: {
-      en: "Flour",
-    },
-    description: {
-      en: "Flour",
-    },
-    parentId: "632aca0b4d87ff2494210bc4",
-    parentName: "Cooking Essential",
-    icon: "",
-  },
+  
   {
     _id: "632aca2b4d87ff2494210be8",
     status: "show",
