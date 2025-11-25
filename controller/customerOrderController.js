@@ -88,68 +88,30 @@ const getOrderCustomer = async (req, res) => {
     const limits = Number(limit) || 8;
     const skip = (pages - 1) * limits;
 
-    const totalDoc = await Order.countDocuments({ user: req.user._id });
+    const rawUserId = req.user?._id ?? req.user;
+    const userId =
+      typeof rawUserId === "string"
+        ? new mongoose.Types.ObjectId(rawUserId)
+        : rawUserId;
 
-    // total padding order count
+    const totalDoc = await Order.countDocuments({ user: userId });
+
     const totalPendingOrder = await Order.aggregate([
-      {
-        $match: {
-          status: "Pending",
-          user: mongoose.Types.ObjectId(req.user._id),
-        },
-      },
-      {
-        $group: {
-          _id: null,
-          total: { $sum: "$total" },
-          count: {
-            $sum: 1,
-          },
-        },
-      },
+      { $match: { status: "Pending", user: userId } },
+      { $group: { _id: null, total: { $sum: "$total" }, count: { $sum: 1 } } },
     ]);
 
-    // total padding order count
     const totalProcessingOrder = await Order.aggregate([
-      {
-        $match: {
-          status: "Processing",
-          user: mongoose.Types.ObjectId(req.user._id),
-        },
-      },
-      {
-        $group: {
-          _id: null,
-          total: { $sum: "$total" },
-          count: {
-            $sum: 1,
-          },
-        },
-      },
+      { $match: { status: "Processing", user: userId } },
+      { $group: { _id: null, total: { $sum: "$total" }, count: { $sum: 1 } } },
     ]);
 
     const totalDeliveredOrder = await Order.aggregate([
-      {
-        $match: {
-          status: "Delivered",
-          user: mongoose.Types.ObjectId(req.user._id),
-        },
-      },
-      {
-        $group: {
-          _id: null,
-          total: { $sum: "$total" },
-          count: {
-            $sum: 1,
-          },
-        },
-      },
+      { $match: { status: "Delivered", user: userId } },
+      { $group: { _id: null, total: { $sum: "$total" }, count: { $sum: 1 } } },
     ]);
 
-    // today order amount
-
-    // query for orders
-    const orders = await Order.find({ user: req.user._id })
+    const orders = await Order.find({ user: userId })
       .sort({ _id: -1 })
       .skip(skip)
       .limit(limits);
@@ -158,20 +120,18 @@ const getOrderCustomer = async (req, res) => {
       orders,
       limits,
       pages,
-      pending: totalPendingOrder.length === 0 ? 0 : totalPendingOrder[0].count,
-      processing:
-        totalProcessingOrder.length === 0 ? 0 : totalProcessingOrder[0].count,
-      delivered:
-        totalDeliveredOrder.length === 0 ? 0 : totalDeliveredOrder[0].count,
-
+      pending: totalPendingOrder.length ? totalPendingOrder[0].count : 0,
+      processing: totalProcessingOrder.length ? totalProcessingOrder[0].count : 0,
+      delivered: totalDeliveredOrder.length ? totalDeliveredOrder[0].count : 0,
       totalDoc,
     });
   } catch (err) {
-    res.status(500).send({
-      message: err.message,
-    });
+    res.status(500).send({ message: err.message });
   }
 };
+
+
+
 const getOrderById = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);

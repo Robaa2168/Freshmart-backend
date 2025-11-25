@@ -1,91 +1,100 @@
 const coupons = [
   {
-    _id: "643970d0e58a401b6c62c753",
-
+    _id: "6750a1b2c3d4e5f60718293a",
     status: "show",
     title: {
-      en: "NOVEMBER Gift Voucher",
-      de: "august geschenkgutschein",
-      hy: "օգոստոսյան նվեր վաուչեր",
-      af: "augustus geskenkbewys",
-      cs: "augustový dárkový poukaz",
-      az: "avqust hədiyyə vauçeri",
-      ln: "sánzá ya zómi na mɔ̌kɔ́",
-      ar: "قسيمة هدايا أغسطس",
-      pt: "voucher presente agosto",
+      en: "November Gift Voucher",
+      de: "November Geschenkgutschein",
+      ar: "قسيمة هدايا نوفمبر",
+      pt: "Voucher presente novembro",
     },
-    couponCode: "NOVEMBER",
-    endTime: "2023-10-31T08:30:00.000Z",
-
-    minimumAmount: 2000,
+    couponCode: "NOVEMBER25",
+    endTime: new Date(Date.UTC(2025, 10, 30, 23, 59, 59)),
+    minimumAmount: 1500,
     productType: "Grocery",
     logo: "https://i.ibb.co/PDLPDHc/ins1.jpg",
-    discountType: {
-      type: "percentage",
-      value: 50,
-    },
+    discountType: { type: "percentage", value: 15 },
   },
   {
-    _id: "643970d0e58a401b6c62c756",
-
+    _id: "6750a1b2c3d4e5f60718293b",
     status: "show",
     title: {
-      en: "DECEMBER Gift Voucher",
-      de: "sommer geschenkgutschein",
-      hy: "ամառային նվեր - վաուչեր",
-      af: "somer geskenkbewys",
-      cs: "letní dárkový poukaz",
-      bn: "গ্রীষ্মের উপহার ভাউচার",
-      az: "yay hədiyyə vauçeri",
-      ln: "sanza ya Zomi na Mibale",
+      en: "Black Friday Deals",
+      de: "Black Friday Angebote",
+      ar: "عروض الجمعة السوداء",
+      pt: "Ofertas Black Friday",
     },
-    couponCode: "DECEMBER",
-    endTime: "2023-12-25T20:38:00.000Z",
-
-    minimumAmount: 500,
-    productType: "Grocery",
-    logo: "https://i.ibb.co/23kQcB9/ins3.jpg",
-    discountType: {
-      type: "percentage",
-      value: 10,
-    },
-  },
-  {
-    _id: "643970d0e58a401b6c62c754",
-
-    status: "show",
-    title: {
-      en: "Gift Voucher",
-      de: "sommer geschenkgutschein",
-    },
-    couponCode: "FIRST",
-    endTime: "2023-12-20T00:56:00.000Z",
-
-    minimumAmount: 1000,
-    productType: "Cloths",
-    logo: "https://i.ibb.co/4thS4Z1/ins2.jpg",
-    discountType: {
-      type: "percentage",
-      value: 10,
-    },
-  },
-  {
-    _id: "643970d0e58a401b6c62c755",
-
-    status: "show",
-    title: {
-      en: "Black FRIDAY",
-    },
-    couponCode: "BFRIDAY",
-    endTime: "2024-01-01T20:19:00.000Z",
-
+    couponCode: "BFRIDAY25",
+    endTime: new Date(Date.UTC(2025, 11, 3, 23, 59, 59)),
     minimumAmount: 500,
     productType: "Grocery",
     logo: "https://i.ibb.co/wBBYm7j/ins4.jpg",
-    discountType: {
-      type: "fixed",
-      value: 100,
-    },
+    discountType: { type: "fixed", value: 150 },
   },
-];
-module.exports = coupons;
+  {
+    _id: "6750a1b2c3d4e5f60718293c",
+    status: "show",
+    title: {
+      en: "Cyber Week Savings",
+      de: "Cyber Week Rabatte",
+      ar: "خصومات أسبوع سايبر",
+      pt: "Descontos Cyber Week",
+    },
+    couponCode: "CYBER25",
+    endTime: new Date(Date.UTC(2025, 11, 2, 23, 59, 59)),
+    minimumAmount: 750,
+    productType: "Grocery",
+    logo: "https://i.ibb.co/23kQcB9/ins3.jpg",
+    discountType: { type: "percentage", value: 20 },
+  },
+  {
+    _id: "6750a1b2c3d4e5f60718293d",
+    status: "show",
+    title: {
+      en: "December Gift Voucher",
+      de: "Dezember Geschenkgutschein",
+      ar: "قسيمة هدايا ديسمبر",
+      pt: "Voucher presente dezembro",
+    },
+    couponCode: "DECEMBER25",
+    endTime: new Date(Date.UTC(2026, 0, 2, 23, 59, 59)),
+    minimumAmount: 500,
+    productType: "Grocery",
+    logo: "https://i.ibb.co/23kQcB9/ins3.jpg",
+    discountType: { type: "percentage", value: 12 },
+  },
+  {
+    _id: "6750a1b2c3d4e5f60718293e",
+    status: "show",
+    title: {
+      en: "New Year Booster",
+      de: "Neujahr Booster",
+      ar: "عرض بداية السنة",
+      pt: "Oferta de ano novo",
+    },
+    couponCode: "NEWYEAR26",
+    endTime: new Date(Date.UTC(2026, 0, 15, 23, 59, 59)),
+    minimumAmount: 1000,
+    productType: "Grocery",
+    logo: "https://i.ibb.co/wBBYm7j/ins4.jpg",
+    discountType: { type: "fixed", value: 100 },
+  },
+  {
+    _id: "6750a1b2c3d4e5f60718293f",
+    status: "show",
+    title: {
+      en: "First Order Voucher",
+      de: "Erste Bestellung Gutschein",
+      ar: "قسيمة الطلب الاول",
+      pt: "Voucher da primeira compra",
+    },
+    couponCode: "FIRST25",
+    endTime: new Date(Date.UTC(2025, 11, 31, 23, 59, 59)),
+    minimumAmount: 1000,
+    productType: "Cloths",
+    logo: "https://i.ibb.co/4thS4Z1/ins2.jpg",
+    discountType: { type: "percentage", value: 10 },
+  },
+]
+
+module.exports = coupons

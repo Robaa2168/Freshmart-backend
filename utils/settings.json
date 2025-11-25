@@ -7,7 +7,7 @@
       "company_name": "Freshmart Groceries",
       "vat_number": "47589",
       "post_code": "2030",
-      "contact": "+254727372017",
+      "contact": "+254799322688",
       "email": "Freshmart@gmail.com",
       "website": "Freshmart-admin.vercel.app",
       "default_currency": "KES",
@@ -79,7 +79,7 @@
           "en": "Checkout",
           "de": "Kasse"
         },
-        "phone": "+254727372017",
+        "phone": "+254799322688",
         "logo": "https://res.cloudinary.com/ahossain/image/upload/v1697687802/settings/logo-light_hls14v.svg"
       },
       "home": {
@@ -238,7 +238,7 @@
           "de": "Wir sind unparteiisch und unabhängig und erstellen jeden Tag unverwechselbare, erstklassige Reintermediate-Backend-Lieferprogramme."
         },
         "founder_one_name": {
-          "en": "Sharon Cherono",
+          "en": "Kathy Chelangat",
         }
       },
       "contact_us": {
@@ -271,8 +271,8 @@
           "de": "Rufen Sie uns an"
         },
         "call_box_phone": {
-          "en": "+254727372017",
-          "de": "+254727372017"
+          "en": "+254799322688",
+          "de": "+254799322688"
         },
         "call_box_text": {
           "en": "Distinctively disseminate focused solutions clicks-and-mortar ministate. ",
@@ -720,7 +720,7 @@
         "social_whatsapp": "https://web.whatsapp.com/",
 
         "payment_method_img": "https://res.cloudinary.com/ahossain/image/upload/v1697688607/settings/payment-logo_qhslgz.webp",
-        "bottom_contact": "+254727372017"
+        "bottom_contact": "+254799322688"
       },
       "slug": {
         "right_box_status": true,
