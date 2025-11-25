@@ -80,7 +80,7 @@ const setting = [
           en: "Checkout",
           de: "Kasse",
         },
-        phone: "+253727372017",
+        phone: "+254799322688",
         logo: "https://res.cloudinary.com/ahossain/image/upload/v1697687802/settings/logo-light_hls14v.svg",
       },
       home: {
