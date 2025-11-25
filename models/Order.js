@@ -1,6 +1,9 @@
 // Freshmart-backend/models/Order.js
 const mongoose = require("mongoose");
 
+/**
+ * Order Schema
+ */
 const orderSchema = new mongoose.Schema(
   {
     user: {
@@ -9,20 +12,19 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
 
-    // Auto incremented invoice number
-    // sparse avoids unique index issues on old docs that may not have invoice yet
-    invoice: { type: Number, index: true, unique: true, sparse: true },
+    // Auto-incremented invoice number (unique)
+    invoice: { type: Number, unique: true, index: true, sparse: true },
 
     cart: [{}],
 
     user_info: {
-      name: { type: String, required: false },
-      email: { type: String, required: false },
-      contact: { type: String, required: false },
-      address: { type: String, required: false },
-      city: { type: String, required: false },
-      country: { type: String, required: false },
-      zipCode: { type: String, required: false },
+      name: { type: String },
+      email: { type: String },
+      contact: { type: String },
+      address: { type: String },
+      city: { type: String },
+      country: { type: String },
+      zipCode: { type: String },
     },
 
     subTotal: { type: Number, required: true },
@@ -30,13 +32,14 @@ const orderSchema = new mongoose.Schema(
     discount: { type: Number, required: true, default: 0 },
     total: { type: Number, required: true },
 
-    shippingOption: { type: String, required: false },
+    shippingOption: { type: String },
     paymentMethod: { type: String, required: true },
-    cardInfo: { type: Object, required: false },
+    cardInfo: { type: Object },
 
     status: {
       type: String,
       enum: ["Pending", "Processing", "Delivered", "Cancel"],
+      default: "Pending",
     },
 
     paymentStatus: {
@@ -45,10 +48,9 @@ const orderSchema = new mongoose.Schema(
       default: "Pending",
     },
 
-    // Make this sparse too, to avoid duplicate null conflicts
+    // Optional unique payment reference
     paymentIdentifier: {
       type: String,
-      required: false,
       unique: true,
       sparse: true,
     },
@@ -57,29 +59,25 @@ const orderSchema = new mongoose.Schema(
 );
 
 /**
- * Invoice auto increment without creating a new mongoose model.
- * Uses a "counters" collection and atomic findOneAndUpdate.
- * First invoice will be 10000.
+ * Atomic invoice auto-increment logic using a 'counters' collection.
+ * Always produces strictly increasing invoice numbers like 10000, 10001, 10002, etc.
  */
 orderSchema.pre("save", async function () {
-  if (!this.isNew) return;
-  if (this.invoice != null) return;
+  if (!this.isNew || this.invoice != null) return;
 
   const db = mongoose.connection.db;
   if (!db) throw new Error("MongoDB connection not ready");
 
-  // Use a different field for $setOnInsert so it cannot conflict with $inc(seq)
   const result = await db.collection("counters").findOneAndUpdate(
     { _id: "order_invoice" },
-    { $setOnInsert: { createdAt: new Date() }, $inc: { seq: 1 } },
+    { $inc: { seq: 1 } },
     { upsert: true, returnDocument: "after" }
   );
 
-  const seq = Number(result?.value?.seq || 0);
+  const seq = Number(result?.value?.seq || 1);
 
-  // first invoice becomes 10000
-  this.invoice = 10000 + (seq - 1);
+  // Start invoices from 10000
+  this.invoice = 9999 + seq;
 });
-
 
 module.exports = mongoose.models.Order || mongoose.model("Order", orderSchema);
