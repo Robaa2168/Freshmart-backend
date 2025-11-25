@@ -11,25 +11,64 @@ const { handleProductQuantity } = require("../lib/stock-controller/others");
 const { formatAmountForStripe } = require("../lib/stripe/stripe");
 
 const addOrder = async (req, res) => {
+  console.log("[addOrder] hit /order/add");
+  console.log("[addOrder] req.user (raw):", req.user);
+  console.log("[addOrder] req.user typeof:", typeof req.user);
+  console.log("[addOrder] req.user keys:", req.user && typeof req.user === "object" ? Object.keys(req.user) : null);
+
   try {
     const userId = req.user?._id ?? req.user;
-    if (!userId) return res.status(401).json({ message: "Unauthorized" });
+
+    console.log("[addOrder] computed userId:", userId);
+    console.log("[addOrder] computed userId typeof:", typeof userId);
+    console.log("[addOrder] computed userId keys:", userId && typeof userId === "object" ? Object.keys(userId) : null);
+
+    if (!userId) {
+      console.log("[addOrder] Unauthorized: userId missing");
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    console.log("[addOrder] incoming body keys:", req.body ? Object.keys(req.body) : null);
+    console.log("[addOrder] cart info:", {
+      hasCart: Array.isArray(req.body?.cart),
+      cartLen: Array.isArray(req.body?.cart) ? req.body.cart.length : 0,
+      firstCartItem: Array.isArray(req.body?.cart) ? req.body.cart[0] : null,
+    });
 
     const newOrder = new Order({
       ...req.body,
       user: userId,
     });
 
+    console.log("[addOrder] about to save order");
+    console.log("[addOrder] newOrder.user:", newOrder.user);
+
     const order = await newOrder.save();
 
-    // IMPORTANT: update stock before responding, and await it
-    await handleProductQuantity(order.cart);
+    console.log("[addOrder] order saved:", { _id: order?._id, user: order?.user, status: order?.status });
+    console.log("[addOrder] order.cart length:", Array.isArray(order?.cart) ? order.cart.length : 0);
 
+    console.log("[addOrder] updating stock with handleProductQuantity...");
+    await handleProductQuantity(order.cart);
+    console.log("[addOrder] stock update done");
+
+    console.log("[addOrder] returning 201");
     return res.status(201).json(order);
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    console.log("[addOrder] ERROR name:", err?.name);
+    console.log("[addOrder] ERROR message:", err?.message);
+    console.log("[addOrder] ERROR stack:", err?.stack);
+
+    // helpful mongoose bits
+    console.log("[addOrder] ERROR errors:", err?.errors);
+    console.log("[addOrder] ERROR path:", err?.path);
+    console.log("[addOrder] ERROR value:", err?.value);
+    console.log("[addOrder] ERROR kind:", err?.kind);
+
+    return res.status(500).json({ message: err?.message || "Internal server error" });
   }
 };
+
 
 // create payment intent for stripe
 const createPaymentIntent = async (req, res) => {
