@@ -12,7 +12,7 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
 
-    // Auto-incremented invoice number (unique)
+    // Random 6 digit invoice number (must be unique)
     invoice: { type: Number, unique: true, index: true, sparse: true },
 
     cart: [{}],
@@ -58,26 +58,38 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Helper to generate a random 6 digit number (100000 - 999999)
+function generateRandomInvoice() {
+  return Math.floor(100000 + Math.random() * 900000);
+}
+
 /**
- * Atomic invoice auto-increment logic using a 'counters' collection.
- * Always produces strictly increasing invoice numbers like 10000, 10001, 10002, etc.
+ * Random 6 digit invoice assignment with collision checks.
+ * No ordering guarantee, only uniqueness.
  */
 orderSchema.pre("save", async function () {
-  if (!this.isNew || this.invoice != null) return;
+  // Only assign invoice on first save and when not already set
+  if (!this.isNew || this.invoice != null) {
+    return;
+  }
 
-  const db = mongoose.connection.db;
-  if (!db) throw new Error("MongoDB connection not ready");
+  const MAX_ATTEMPTS = 10;
 
-  const result = await db.collection("counters").findOneAndUpdate(
-    { _id: "order_invoice" },
-    { $inc: { seq: 1 } },
-    { upsert: true, returnDocument: "after" }
-  );
+  for (let i = 0; i < MAX_ATTEMPTS; i += 1) {
+    const candidate = generateRandomInvoice();
 
-  const seq = Number(result?.value?.seq || 1);
+    // Check if some other order already uses this invoice
+    const exists = await this.constructor.exists({ invoice: candidate });
+    if (!exists) {
+      this.invoice = candidate;
+      return;
+    }
+  }
 
-  // Start invoices from 10000
-  this.invoice = 9999 + seq;
+  // If we somehow fail after several attempts, throw
+  throw new Error("Failed to generate a unique 6 digit invoice number");
 });
 
-module.exports = mongoose.models.Order || mongoose.model("Order", orderSchema);
+
+module.exports =
+  mongoose.models.Order || mongoose.model("Order", orderSchema);
